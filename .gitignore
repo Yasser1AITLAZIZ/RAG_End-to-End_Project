@@ -167,3 +167,6 @@ env_*/
 
 # secret keys:
 *.env
+
+# vs code config folder:
+.vscode/
