@@ -1,0 +1,12 @@
+black==24.10.0
+bs4==4.12.3
+docx==0.2.4
+exception==0.1.0
+flake8==7.1.1
+mypy==1.13.0
+pinecone==5.4.1
+pre_commit==4.0.1
+PyPDF2==3.0.1
+pytest==8.3.3
+python-docx==1.1.2
+sentence-transformers==3.3.1
