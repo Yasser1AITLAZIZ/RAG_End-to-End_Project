@@ -1,0 +1,7 @@
+{
+    "text": "Guide d'Implémentation de OptimRiskMaximizer 1. Introduction OptimRiskMaximizer est une méthode avancée pour l'optimisation du risque en trading. 2. Étapes Étape 1  Chargement des données. Étape 2  Calcul de la matrice de covariance. Étape 3  Optimisation du portefeuille. 3. Conclusion L'application de OptimRiskMaximizer améliore significativement les performances des portefeuilles.",
+    "metadata": {
+        "file_path": "data/raw/document3.docx",
+        "file_type": "docx"
+    }
+}

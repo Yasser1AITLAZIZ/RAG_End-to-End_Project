@@ -1,6 +1,6 @@
 from typing import List, Dict, Union
 from vector_database.pinecone_client import PineconeClient
-from vector_database.config import DEFAULT_INDEX_NAME, DEFAULT_DIMENSIONS
+from vector_database.config import DEFAULT_INDEX_NAME, DEFAULT_DIMENSIONS, NAMESPACE
 from vector_database.exceptions import PineconeError
 
 
@@ -9,7 +9,9 @@ class VectorManager:
     Handles vector operations in Pinecone, including creation, insertion, and retrieval.
     """
 
-    def __init__(self, index_name: str = DEFAULT_INDEX_NAME, dimensions: int = DEFAULT_DIMENSIONS):
+    def __init__(
+        self, index_name: str = DEFAULT_INDEX_NAME, dimensions: int = DEFAULT_DIMENSIONS, namespace: str = NAMESPACE
+    ):
         """
         Initialize a vector index in Pinecone.
 
@@ -19,6 +21,7 @@ class VectorManager:
         """
         self.index_name = index_name
         self.dimensions = dimensions
+        self.namespace = namespace
 
         try:
             # Initialize Pinecone client
@@ -36,7 +39,7 @@ class VectorManager:
             vectors (List[Dict[str, Union[str, List[float]]]]): List of dictionaries with 'id' and 'values'.
         """
         try:
-            self.index.upsert(vectors=vectors)
+            self.index.upsert(vectors=vectors, namespace=self.namespace)
         except Exception as e:
             raise PineconeError(f"Failed to upsert vectors: {e}")
 
@@ -52,9 +55,9 @@ class VectorManager:
             List[Dict[str, Union[str, float]]]: List of matching vectors with scores.
         """
         try:
-            return self.index.query(vector=query_vector, top_k=top_k, include_metadata=True, include_values=True)[
-                "matches"
-            ]
+            return self.index.query(
+                vector=query_vector, namespace=self.namespace, top_k=top_k, include_metadata=True, include_values=True
+            )["matches"]
         except Exception as e:
             raise PineconeError(f"Failed to query vectors: {e}")
 
@@ -72,7 +75,7 @@ class VectorManager:
             PineconeError: If the fetch operation fails.
         """
         try:
-            response = self.index.fetch(ids=vector_ids)
+            response = self.index.fetch(ids=vector_ids, namespace=self.namespace)
             return response["vectors"]
         except Exception as e:
             raise PineconeError(f"Failed to fetch vectors: {e}")
@@ -85,7 +88,7 @@ class VectorManager:
             vector_id (str): ID of the vector to delete.
         """
         try:
-            self.index.delete(ids=[vector_id])
+            self.index.delete(ids=[vector_id], namespace=self.namespace)
         except Exception as e:
             raise PineconeError(f"Failed to delete vector '{vector_id}': {e}")
 
