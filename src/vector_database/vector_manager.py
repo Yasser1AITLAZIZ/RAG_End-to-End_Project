@@ -6,7 +6,7 @@ from vector_database.exceptions import PineconeError
 
 class VectorManager:
     """
-    Handles vector operations in Pinecone, including creation, insertion, and retrieval.
+    Handles vector operations in Pinecone, including creation, insertion, retrieval, and deletion.
     """
 
     def __init__(
@@ -18,6 +18,7 @@ class VectorManager:
         Args:
             index_name (str): Name of the index to create or use.
             dimensions (int): Dimensionality of the vectors to store.
+            namespace (str): Namespace for organizing vectors.
         """
         self.index_name = index_name
         self.dimensions = dimensions
@@ -40,7 +41,7 @@ class VectorManager:
         """
         try:
             self.index.upsert(vectors=vectors, namespace=self.namespace)
-            print("Added vectors to the index successfully !")
+            print("Added vectors to the index successfully!")
         except Exception as e:
             raise PineconeError(f"Failed to upsert vectors: {e}")
 
@@ -92,3 +93,16 @@ class VectorManager:
             self.index.delete(ids=[vector_id], namespace=self.namespace)
         except Exception as e:
             raise PineconeError(f"Failed to delete vector '{vector_id}': {e}")
+
+    def delete_index(self):
+        """
+        Delete the entire index from Pinecone.
+
+        Raises:
+            PineconeError: If the delete operation fails.
+        """
+        try:
+            self.client.client.delete_index(self.index_name)
+            print(f"Index '{self.index_name}' deleted successfully!")
+        except Exception as e:
+            raise PineconeError(f"Failed to delete index '{self.index_name}': {e}")
