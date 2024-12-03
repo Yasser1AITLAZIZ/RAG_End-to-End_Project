@@ -3,6 +3,7 @@ bs4==0.0.2
 docx==0.2.4
 exception==0.1.0
 flake8==7.1.1
+fastapi==0.115.5
 groq==0.13.0
 mypy==1.13.0
 pinecone==5.4.1
@@ -13,3 +14,4 @@ python-dotenv==1.0.1
 python-docx==1.1.2
 sentence-transformers==3.3.1
 sentencepiece==0.2.0
+uvicorn==0.32.1
