@@ -5,7 +5,7 @@ from env_variables import ENV
 
 try:
     # Retrieve the API key
-    api_key = get_api_key()
+    api_key = get_api_key(key_name="LLM_API_KEY")
 
 except FileNotFoundError as fnf_error:
     # Handle the case where the .env file is missing
@@ -20,10 +20,10 @@ except Exception as e:
     print(f"An unexpected error occurred: {e}")
 
 if ENV == "prod":
-    PINECONE_API_KEY = api_key
+    LLM_API_KEY = api_key
 elif ENV == "test":
-    PINECONE_API_KEY = os.getenv("PINECONE_API_KEY_Git_secret")
-PINECONE_ENVIRONMENT = "us-east-1"
-DEFAULT_INDEX_NAME = "vector-index-t"
-DEFAULT_DIMENSIONS = 384
-NAMESPACE = "cluster-primo"
+    LLM_API_KEY = os.getenv("LLM_API_KEY_Git_secret")
+
+DEFAULT_MODEL = "llama3-8b-8192"
+MAX_TOKENS = 3500  # Maximum tokens for the response
+TEMPERATURE = 0.5  # Creativity level of the response
