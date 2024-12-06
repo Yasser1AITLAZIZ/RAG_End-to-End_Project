@@ -12,7 +12,7 @@ class Retriever:
 
     def __init__(
         self,
-        vector_manager: VectorManager = VectorManager(),
+        vector_manager: VectorManager = VectorManager(""),
         embedding_generator: EmbeddingGenerator = EmbeddingGenerator(),
     ):
         """

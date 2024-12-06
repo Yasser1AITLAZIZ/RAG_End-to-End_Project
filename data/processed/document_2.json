@@ -1,8 +1,0 @@
-{
-    "text": "OptimRiskMaximizer Optimisation Avancée du Risque en Trading OptimRiskMaximizer combine des techniques avancées d'optimisation mathématique pour ajuster dynamiquement les positions de trading. Formule Principale  OptimRisk  argmin    -       poids du portefeuille    matrice de covariance des rendements    facteur d'aversion au risque    rendements moyens",
-    "metadata": {
-        "file_path": "data/raw/document2.pdf",
-        "file_type": "pdf",
-        "num_pages": 1
-    }
-}
