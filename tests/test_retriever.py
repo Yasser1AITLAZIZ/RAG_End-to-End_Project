@@ -21,7 +21,7 @@ def test_retrieve(setup_retriever):
         {"id": "doc2", "values": [0.4, 0.5, 0.6] + [0.0] * 381},
     ]
     retriever.vector_manager.upsert_vectors(vectors)
-    time.sleep(20)
+    time.sleep(15)
     # Retrieve based on a query
     query = "Example query for document retrieval"
     results = retriever.retrieve(query)

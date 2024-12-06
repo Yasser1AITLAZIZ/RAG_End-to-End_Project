@@ -1,6 +1,8 @@
 import pytest
 import time
+import numpy as np
 from typing import Dict, List, Union
+from langchain.schema import Document
 from vector_database.vector_manager import VectorManager
 from vector_database.exceptions import PineconeError
 
@@ -59,3 +61,34 @@ class TestVectorManager:
         # Attempt to fetch a vector from the deleted index, expecting an exception
         with pytest.raises(PineconeError):
             manager.fetch_vectors(["vec1"])
+
+    def test_embed_store_db(self, vector_manager: VectorManager, mocker) -> None:
+        """
+        Test the embed_store_db method by mocking the DocumentChunker and EmbeddingGenerator.
+        Ensures documents are embedded and stored without error.
+        """
+        # Mock the DocumentChunker to return a known chunked document
+        mock_doc = Document(page_content="Test content", metadata={"source": "test_file.pdf"})
+        mocker.patch("embeddings.chunks.DocumentChunker.chunk_data", return_value=[mock_doc])
+
+        # Mock the EmbeddingGenerator to return a known embedding
+        mock_embedding = np.array([[0.1, 0.2, 0.3]])
+        mocker.patch(
+            "embeddings.embedding_generator.EmbeddingGenerator.generate_embeddings", return_value=mock_embedding
+        )
+
+        # Call embed_store_db
+        vector_manager.embed_store_db(directory_documents="fake_directory")
+
+        # Wait a bit for upsert to complete
+        time.sleep(15)
+
+        # Query the index with a vector close to the mocked embedding
+        # We expect to find our chunked document
+        query_vector = [0.1, 0.2, 0.3]
+        results = vector_manager.query_vectors(query_vector=query_vector, top_k=1)
+
+        # Check that we got at least one match and it has the metadata we expect
+        assert len(results) > 0, "No vectors returned from query, expected at least one."
+        metadata = results[0].get("metadata", {})
+        assert metadata.get("source") == "test_file.pdf", "Metadata from the stored chunk does not match expected."

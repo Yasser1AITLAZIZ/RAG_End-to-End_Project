@@ -20,21 +20,6 @@ class LLMIntegrationWithLLaMA:
         except Exception as e:
             raise LLMChainError(f"Failed to initialize Groq client: {e}")
 
-    # def count_tokens(self, text: str) -> int:
-    #     """
-    #     Count the number of tokens in a given text using LLaMA tokenizer.
-
-    #     Args:
-    #         text (str): The text to tokenize.
-
-    #     Returns:
-    #         int: The number of tokens.
-    #     """
-    #     try:
-    #         return len(self.tokenizer.encode(text))
-    #     except Exception as e:
-    #         raise LLMChainError(f"Failed to count tokens: {e}")
-
     def generate_response(self, query: str, retrieved_docs: List[dict]) -> str:
         """
         Generate a response from the LLM using Groq API.
@@ -57,11 +42,6 @@ class LLMIntegrationWithLLaMA:
                 f"Question: {query}\n\n"
                 "Answer:"
             )
-
-            # Token count validation
-            # token_count = self.count_tokens(prompt, model=self.model)
-            # if token_count > MAX_TOKENS:
-            #    raise LLMChainError(f"Prompt exceeds token limit ({token_count} > {MAX_TOKENS}).")
 
             # Generate response using the Groq API
             completion = self.client.chat.completions.create(
