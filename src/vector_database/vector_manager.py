@@ -142,7 +142,7 @@ class VectorManager:
         """
         try:
             # 1. Chunk documents
-            chunker = DocumentChunker(directory=directory_documents, chunk_size=450, chunk_overlap=100)
+            chunker = DocumentChunker(directory=directory_documents, chunk_size=1000, chunk_overlap=200)
             documents = chunker.chunk_data()  # documents should be a list of Document objects
 
             # 2. Extract the texts to embed

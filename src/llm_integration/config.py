@@ -26,4 +26,4 @@ elif ENV == "test":
 
 DEFAULT_MODEL = "llama3-8b-8192"
 MAX_TOKENS = 3500  # Maximum tokens for the response
-TEMPERATURE = 0.5  # Creativity level of the response
+TEMPERATURE = 0.3  # Creativity level of the response

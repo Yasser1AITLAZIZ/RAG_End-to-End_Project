@@ -76,6 +76,6 @@ class TestVectorManager:
             query_vector=query_vector,
             top_k=1,
         )
-        print(results)
+
         # Check that we got at least one match
         assert len(results) > 0, "No vectors returned from query, expected at least one."

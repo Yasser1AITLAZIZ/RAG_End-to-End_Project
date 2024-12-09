@@ -1,2 +1,3 @@
-DEFAULT_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+DEFAULT_MODEL_NAME = "all-mpnet-base-v2"
+DEFAULT_DIMENSIONS_EMBD = 768
 DEFAULT_BATCH_SIZE = 32

@@ -24,6 +24,8 @@ def test_generate_response_success():
             {"text": "The OptimRiskMaximizer is a method for optimizing risk management in trading."},
             {"text": "It balances risk and reward dynamically based on market conditions."},
         ],
+        "temperature": 0.5,
+        "max_tokens": 500,
     }
     response = client.post("/api/generate-response", json=payload)
     assert response.status_code == 200, "Generate-response endpoint should return status code 200"
@@ -36,7 +38,12 @@ def test_generate_response_no_documents():
     """
     Test the generate-response endpoint with no documents.
     """
-    payload = {"query": "What are the benefits of the OptimRiskMaximizer method?", "documents": []}
+    payload = {
+        "query": "What are the benefits of the OptimRiskMaximizer method?",
+        "documents": [],
+        "temperature": 0.5,
+        "max_tokens": 500,
+    }
     response = client.post("/api/generate-response", json=payload)
     assert response.status_code == 200, "Generate-response endpoint should handle empty documents gracefully"
     response_data = response.json()

@@ -16,7 +16,7 @@ def setup_retriever():
     manager = VectorManager(
         directory_documents="",  # No documents needed for this test
         index_name="pytest-retriever-test",
-        dimensions=384,
+        dimensions=768,
         namespace="testing",
     )
     embedding_generator = EmbeddingGenerator()
@@ -37,12 +37,12 @@ def test_retrieve(setup_retriever):
     vectors: List[Dict[str, Union[str, List[float], Dict]]] = [
         {
             "id": "doc1",
-            "values": [0.1, 0.2, 0.3] + [0.0] * 381,
+            "values": [0.1, 0.2, 0.3] + [0.0] * 765,
             "metadata": {"text": "This is the content of document 1."},
         },
         {
             "id": "doc2",
-            "values": [0.4, 0.5, 0.6] + [0.0] * 381,
+            "values": [0.4, 0.5, 0.6] + [0.0] * 765,
             "metadata": {"text": "This is the content of document 2."},
         },
     ]

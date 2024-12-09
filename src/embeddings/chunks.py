@@ -8,7 +8,7 @@ class DocumentChunker:
     A class used to split documents into chunks using RecursiveCharacterTextSplitter.
     """
 
-    def __init__(self, directory: str, chunk_size: int = 100, chunk_overlap: int = 50):
+    def __init__(self, directory: str, chunk_size: int = 1500, chunk_overlap: int = 250):
         """
         Initialize the DocumentChunker with specified chunk size and overlap.
 

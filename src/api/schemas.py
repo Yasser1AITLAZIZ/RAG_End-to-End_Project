@@ -17,6 +17,8 @@ class GenerateRequest(BaseModel):
 
     query: str  # The user's question
     documents: List[Document]  # List of contextual documents
+    temperature: float
+    max_tokens: int
 
 
 class GenerateResponse(BaseModel):
