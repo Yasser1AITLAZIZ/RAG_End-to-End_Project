@@ -1,0 +1,7 @@
+env_dev_rag/
+.pytest*/
+.mypy*/
+__pycache__/
+.vscode/
+.github/
+.pre-commit*

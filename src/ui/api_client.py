@@ -8,7 +8,7 @@ class APIClient:
     A client class to interact with the backend API endpoints.
     """
 
-    def __init__(self, base_url: str = "http://localhost:8000/api"):
+    def __init__(self, base_url: str):
         """
         Initialize the API client with a base URL.
 

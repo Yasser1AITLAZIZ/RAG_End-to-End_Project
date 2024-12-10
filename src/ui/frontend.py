@@ -158,8 +158,13 @@ class Frontend:
 
             self.interface = interface
 
-    def launch(self) -> None:
+    def launch(self, server_port: int, share: bool = False) -> None:
         """
-        Launch the Gradio interface.
+        Launch the Gradio interface with optional server_name and server_port.
+
+        Args:
+            server_name (str): The host name to listen on (default is "127.0.0.1").
+            server_port (int): The port to listen on (default is 7860).
         """
-        self.interface.launch()
+        print("Launching Gradio app on ...")
+        self.interface.launch(share=share, server_port=server_port)

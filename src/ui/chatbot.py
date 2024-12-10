@@ -26,7 +26,7 @@ class ChatbotInterface:
         """
         self.vector_manager = VectorManager("data/raw/")
         self.retriever = Retriever()
-        self.api_client = APIClient()
+        self.api_client = APIClient(os.getenv("api_service_address", "http://localhost:8080/api"))
         self.llm_config = LLMConfig()
 
     def process_and_store_documents(self, files: List) -> str:

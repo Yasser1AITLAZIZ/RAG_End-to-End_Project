@@ -25,4 +25,4 @@ frontend = Frontend(chatbot_interface)
 frontend.build_interface()
 
 if __name__ == "__main__":
-    frontend.launch()
+    frontend.launch(share=True, server_port=7861)
