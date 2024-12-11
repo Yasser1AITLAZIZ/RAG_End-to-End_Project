@@ -1,6 +1,6 @@
 from typing import List
-from src.vector_database.vector_manager import VectorManager
-from src.embeddings.embedding_generator import EmbeddingGenerator
+from vector_database.vector_manager import VectorManager
+from embeddings.embedding_generator import EmbeddingGenerator
 from retriever.config import TOP_K_RESULTS
 from retriever.exceptions import RetrieverError
 
@@ -10,7 +10,11 @@ class Retriever:
     A class to retrieve the most relevant documents based on a query.
     """
 
-    def __init__(self, vector_manager: VectorManager, embedding_generator: EmbeddingGenerator):
+    def __init__(
+        self,
+        vector_manager: VectorManager = VectorManager(""),
+        embedding_generator: EmbeddingGenerator = EmbeddingGenerator(),
+    ):
         """
         Initialize the retriever.
 
@@ -30,16 +34,21 @@ class Retriever:
             top_k (int): Number of results to retrieve.
 
         Returns:
-            List[Dict[str, float]]: A list of document IDs and similarity scores.
+            List[Dict[str, Union[str, float]]]: A list of dictionaries with keys 'id', 'score', and 'text'.
         """
         try:
+            print(query)
             # Generate embedding for the query
-            query_embedding = self.embedding_generator.generate_embeddings([query])[0]
-            vec_embedding = query_embedding.astype(float).tolist()  # must have type list[float] tp query in Pinecone
+            query_embedding = self.embedding_generator.generate_embeddings(texts=[query])[0]
+            vec_embedding = query_embedding.astype(float).tolist()
+
             # Query the vector database
             results = self.vector_manager.query_vectors(query_vector=vec_embedding, top_k=top_k)
 
-            # Format results
-            return [{"id": match["id"], "score": float(match["score"])} for match in results]
+            # Include text from metadata
+            return [
+                {"id": match["id"], "score": float(match["score"]), "text": match["metadata"].get("text", "")}
+                for match in results
+            ]
         except Exception as e:
             raise RetrieverError(f"Failed to retrieve documents: {e}")

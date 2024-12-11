@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  api_service:
+    build:
+      context: .
+      dockerfile: Dockerfile_api_service
+    container_name: api_service
+    command: python src/api/main.py
+    networks:
+      - app_network 
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile_app_service
+    container_name: gradio_app
+    command: python src/ui/gradio_app.py
+    ports:
+      - "7860:7861"  
+    networks:
+      - app_network  
+
+networks:
+  app_network:
+    driver: bridge

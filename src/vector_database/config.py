@@ -1,6 +1,7 @@
 import os
 from utils.helpers import get_api_key
 from vector_database.exceptions import APIKeyError
+from embeddings.config import DEFAULT_DIMENSIONS_EMBD
 from env_variables import ENV
 
 try:
@@ -24,6 +25,6 @@ if ENV == "prod":
 elif ENV == "test":
     PINECONE_API_KEY = os.getenv("PINECONE_API_KEY_Git_secret")
 PINECONE_ENVIRONMENT = "us-east-1"
-DEFAULT_INDEX_NAME = "vector-index-t"
-DEFAULT_DIMENSIONS = 384
+DEFAULT_INDEX_NAME = "vector-index-complex"
+DEFAULT_DIMENSIONS = DEFAULT_DIMENSIONS_EMBD
 NAMESPACE = "cluster-primo"

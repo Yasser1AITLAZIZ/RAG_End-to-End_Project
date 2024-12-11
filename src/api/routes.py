@@ -21,8 +21,12 @@ async def generate_response(request: GenerateRequest):
     """
     try:
         # Extract document texts and generate a response using LLaMA
+
         response = llm_integration.generate_response(
-            query=request.query, retrieved_docs=[{"text": doc.text} for doc in request.documents]
+            query=request.query,
+            retrieved_docs=[{"text": doc.text} for doc in request.documents],
+            temperature=request.temperature,
+            max_tokens=request.max_tokens,
         )
         return GenerateResponse(response=response)
     except Exception as e:

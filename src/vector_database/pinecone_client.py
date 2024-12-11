@@ -49,15 +49,3 @@ class PineconeClient:
                 print("Created index successfully")
         except Exception as e:
             raise PineconeError(f"Failed to create index '{index_name}': {e}")
-
-    def delete_index(self, index_name: str):
-        """
-        Delete a specific index in Pinecone.
-
-        Args:
-            index_name (str): Name of the index to delete.
-        """
-        try:
-            self.client.delete_index(name=index_name)
-        except Exception as e:
-            raise PineconeError(f"Failed to delete index '{index_name}': {e}")

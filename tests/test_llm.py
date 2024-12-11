@@ -35,9 +35,11 @@ def test_generate_response_real_api(setup_llm_chain):
         {"text": "The OptimRiskMaximizer is a method for optimizing risk management in trading."},
         {"text": "It balances risk and reward dynamically based on market conditions."},
     ]
+    temperature = 0.5
+    max_tokens = 500
 
     # Call the real API
-    response = llm.generate_response(query, retrieved_docs)
+    response = llm.generate_response(query, retrieved_docs, temperature=temperature, max_tokens=max_tokens)
 
     assert isinstance(response, str), "Response should be a string."
     assert len(response) > 0, "Response should not be empty."
