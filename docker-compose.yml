@@ -17,7 +17,7 @@ services:
     container_name: gradio_app
     command: python src/ui/gradio_app.py
     ports:
-      - "7860:7861"  
+      - "8000"  
     networks:
       - app_network  
 

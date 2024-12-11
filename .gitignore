@@ -170,3 +170,8 @@ env_*/
 
 # vs code config folder:
 .vscode/
+
+
+# AWS auth ssh : 
+rag_instance.pem
+notes_docker_ec2

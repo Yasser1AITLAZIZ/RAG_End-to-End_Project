@@ -1,5 +1,10 @@
 import gradio as gr
 from ui.chatbot import ChatbotInterface
+from utils.logger import setup_logger
+import logging
+
+# Initialize logger
+frontend_logger = setup_logger(name="frontend_logger", log_file="logs/frontend.log", level=logging.INFO)
 
 
 class Frontend:
@@ -17,6 +22,7 @@ class Frontend:
         """
         self.chatbot_interface = chatbot_interface
         self.interface = None
+        frontend_logger.info("Frontend instance initialized.")
 
     def build_interface(self) -> None:
         """
@@ -27,6 +33,7 @@ class Frontend:
         - Add callbacks to update the LLM configuration whenever sliders change.
         - Provide immediate feedback upon updating LLM parameters.
         """
+        frontend_logger.info("Building Gradio interface...")
         with gr.Blocks(css=".gradio-container {font-family: 'Helvetica', sans-serif;}") as interface:
             gr.Markdown(
                 """
@@ -166,5 +173,6 @@ class Frontend:
             server_name (str): The host name to listen on (default is "127.0.0.1").
             server_port (int): The port to listen on (default is 7860).
         """
-        print("Launching Gradio app on ...")
+        frontend_logger.info("Launching Gradio interface on port %d...", server_port)
         self.interface.launch(share=share, server_port=server_port)
+        frontend_logger.info("Gradio interface has been stopped.")

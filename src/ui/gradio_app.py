@@ -2,6 +2,7 @@ import signal
 import sys
 from ui.chatbot import ChatbotInterface
 from ui.frontend import Frontend
+import logging
 
 # Initialize the chatbot interface
 chatbot_interface = ChatbotInterface()
@@ -25,4 +26,4 @@ frontend = Frontend(chatbot_interface)
 frontend.build_interface()
 
 if __name__ == "__main__":
-    frontend.launch(share=True, server_port=7861)
+    frontend.launch(share=True, server_port=8000)
