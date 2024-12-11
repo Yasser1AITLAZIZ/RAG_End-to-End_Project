@@ -5,3 +5,5 @@ __pycache__/
 .vscode/
 .github/
 .pre-commit*
+rag_instance.pem
+notes_docker_ec2

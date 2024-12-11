@@ -5,6 +5,11 @@ from ui.api_client import APIClient
 from ui.llm_config import LLMConfig
 from vector_database.vector_manager import VectorManager
 from retriever.retriever import Retriever
+import logging
+from utils.logger import setup_logger
+
+# Initialize logger
+chatbot_logger = setup_logger(name="chatbot_logger", log_file="logs/chatbot.log", level=logging.INFO)
 
 
 class ChatbotInterface:
@@ -24,10 +29,12 @@ class ChatbotInterface:
         Initialize the chatbot interface by setting up the vector manager,
         retriever, API client, and default LLM configuration.
         """
+        chatbot_logger.info("Initializing ChatbotInterface...")
         self.vector_manager = VectorManager("data/raw/")
         self.retriever = Retriever()
         self.api_client = APIClient(os.getenv("api_service_address", "http://localhost:8080/api"))
         self.llm_config = LLMConfig()
+        chatbot_logger.info("ChatbotInterface initialized.")
 
     def process_and_store_documents(self, files: List) -> str:
         """
@@ -39,16 +46,18 @@ class ChatbotInterface:
         Returns:
             str: A status message indicating success or error.
         """
+        chatbot_logger.info("Starting document processing and storage...")
         try:
             output_dir = "data/raw"
             os.makedirs(output_dir, exist_ok=True)
 
             for f in files:
                 shutil.copy(f.name, output_dir)
-
+            chatbot_logger.info("Documents processed and stored successfully.")
             self.vector_manager.embed_store_db(directory_documents=output_dir)
             return "Documents successfully processed and stored in the vector database."
         except Exception as e:
+            chatbot_logger.error("An error occurred during document processing: %s", e)
             return f"An error occurred: {e}"
 
     def chat_with_bot(self, query: str) -> Tuple[str, str]:
@@ -62,6 +71,7 @@ class ChatbotInterface:
         Returns:
             Tuple[str, str]: The retrieved context and the bot's generated response.
         """
+        chatbot_logger.info("Chatbot interaction started with query: %s", query)
         try:
             retrieved_docs = self.retriever.retrieve(query)
             documents_for_api = [{"text": doc["text"]} for doc in retrieved_docs]
@@ -70,8 +80,10 @@ class ChatbotInterface:
             )
 
             context = "\n\n".join([doc["text"] for doc in retrieved_docs])
+            chatbot_logger.info("Chatbot interaction completed.")
             return context, response
         except Exception as e:
+            chatbot_logger.error("An error occurred during chatbot interaction: %s", e)
             return "", f"An error occurred: {e}"
 
     def clear_index_and_raw_folder(self) -> str:
@@ -82,6 +94,7 @@ class ChatbotInterface:
         Returns:
             str: Message indicating the result of the operation.
         """
+        chatbot_logger.info("Clearing index and raw folder...")
         try:
             self.vector_manager.delete_index()
             self.vector_manager.client.create_index(self.vector_manager.index_name, self.vector_manager.dimensions)
@@ -89,9 +102,10 @@ class ChatbotInterface:
             raw_folder = "data/raw"
             if os.path.exists(raw_folder):
                 shutil.rmtree(raw_folder)
-
+            chatbot_logger.info("Index and raw folder cleared successfully.")
             return "Cleanup completed successfully! A new empty index has been created."
         except Exception as e:
+            chatbot_logger.error("An error occurred during cleanup: %s", e)
             return f"An error occurred during cleanup: {e}"
 
     def list_documents(self) -> List[str]:
