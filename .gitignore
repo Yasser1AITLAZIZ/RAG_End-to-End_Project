@@ -175,3 +175,5 @@ env_*/
 # AWS auth ssh : 
 rag_instance.pem
 notes_docker_ec2
+rag_project.pem
+rag_project_app.pem

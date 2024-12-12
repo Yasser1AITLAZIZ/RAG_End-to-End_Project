@@ -15,3 +15,4 @@ COPY . .
 # Set PYTHONPATH environment variable
 ENV PYTHONPATH=/app/src
 
+CMD [ "/bin/bash" ]

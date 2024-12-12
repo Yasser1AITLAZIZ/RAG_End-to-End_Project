@@ -7,3 +7,4 @@ __pycache__/
 .pre-commit*
 rag_instance.pem
 notes_docker_ec2
+logs/

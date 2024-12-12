@@ -4,7 +4,7 @@ services:
   api_service:
     build:
       context: .
-      dockerfile: Dockerfile_api_service
+      dockerfile: dockerfile_api_service
     container_name: api_service
     command: python src/api/main.py
     networks:
@@ -13,11 +13,11 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile_app_service
+      dockerfile: dockerfile_app_service
     container_name: gradio_app
-    command: python src/ui/gradio_app.py
+    command: tail -f /dev/null
     ports:
-      - "8000"  
+      - "5050:8000"  
     networks:
       - app_network  
 

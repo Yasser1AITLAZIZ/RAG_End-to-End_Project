@@ -18,3 +18,4 @@ ENV PYTHONPATH=/app/src api_service_address=http://api_service:8080/api
 # Expose the ports for the API and Gradio services
 EXPOSE 8000
 
+CMD [ "/bin/bash" ]
