@@ -174,5 +174,5 @@ class Frontend:
             server_port (int): The port to listen on (default is 7860).
         """
         frontend_logger.info("Launching Gradio interface on port %d...", server_port)
-        self.interface.launch(share=share, server_port=server_port)
+        self.interface.launch(share=share, server_name="0.0.0.0",server_port=server_port)
         frontend_logger.info("Gradio interface has been stopped.")
