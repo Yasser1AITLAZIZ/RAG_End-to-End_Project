@@ -64,8 +64,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🙏 Acknowledgements
 
-- LLMs
-- FastAPI
+- LLMs lama open source.
 
 ## 📬 Contact
 
