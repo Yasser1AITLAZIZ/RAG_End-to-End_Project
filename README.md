@@ -64,7 +64,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🙏 Acknowledgements
 
-- LLMs lama open source.
+- LLMs llama open source.
 
 ## 📬 Contact
 
